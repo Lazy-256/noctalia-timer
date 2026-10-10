@@ -1,0 +1,42 @@
+{
+  "settings": {
+    "sound": {
+      "label": "Alarm sound",
+      "description": "Loop the alarm sound until the alert is stopped"
+    },
+    "sound_file": {
+      "label": "Custom sound file",
+      "description": "Path to a .wav/.ogg file to use instead of the bundled alarm. Empty = bundled."
+    },
+    "sound_player": {
+      "label": "Sound player",
+      "description": "Command that plays a file (pw-play, paplay, ...). Used instead of the shell's UI sounds, so it works even when those are disabled."
+    },
+    "notify": {
+      "label": "Desktop notification",
+      "description": "Also send a notification when the time is up"
+    },
+    "show_idle": {
+      "label": "Show count when idle on horizontal bar",
+      "description": "Show or hide the readout while the timer is stopped at zero"
+    },
+    "color": {
+      "label": "Color",
+      "description": "Accent color for the time and progress bar"
+    },
+    "show_progress": {
+      "label": "Show Progress Bar"
+    }
+  },
+  "ui": {
+    "duration_label": "Timer Duration",
+    "duration_placeholder": "e.g. 400 → 4:00",
+    "notify_title": "Timer",
+    "notify_body": "Time is up!",
+    "alert_took": "Countdown finished:",
+    "stop": "Stop",
+    "pause": "Pause",
+    "reset": "Reset",
+    "start": "Start"
+  }
+}

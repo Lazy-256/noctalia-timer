@@ -1,0 +1,106 @@
+# Countdown timer whose completion alert stays on screen until you press a
+# button, with a looping alarm sound. Based on the structure of the official
+# noctalia/timer plugin: one headless service owns the countdown, every UI
+# entry is a thin client over noctalia.state.
+#
+# service -> countdown logic, alarm sound loop, opens the alert panel
+# bar     -> hourglass / countdown in the bar; click opens the setup panel
+# panel   -> typed duration input and start/pause/reset
+# alert   -> persistent overlay panel shown when time is up (Stop button)
+# desktop -> desktop widget with +/- adjusters and progress bar
+#
+# IPC: noctalia msg plugin lazy/alarm-timer:timer all start <minutes>|pause|cancel|dismiss
+
+id          = "lazy/alarm-timer"
+name        = "Alarm Timer"
+version     = "0.1.0"
+plugin_api  = 32
+author      = "lazy"
+license     = "MIT"
+icon        = "alarm"
+description = "Countdown timer whose alert stays open and rings until you press Stop."
+tags        = ["countdown", "timer", "alarm", "utility"]
+
+[[setting]]
+key             = "sound"
+type            = "bool"
+label_key       = "settings.sound.label"
+description_key = "settings.sound.description"
+default         = true
+
+[[setting]]
+key             = "sound_file"
+type            = "string"
+label_key       = "settings.sound_file.label"
+description_key = "settings.sound_file.description"
+default         = ""
+
+[[setting]]
+key             = "sound_player"
+type            = "string"
+label_key       = "settings.sound_player.label"
+description_key = "settings.sound_player.description"
+default         = "pw-play"
+
+[[setting]]
+key             = "notify"
+type            = "bool"
+label_key       = "settings.notify.label"
+description_key = "settings.notify.description"
+default         = true
+
+[[widget]]
+id    = "bar"
+entry = "bar.luau"
+
+  [[widget.setting]]
+  key             = "show_idle_on_horizontal"
+  type            = "bool"
+  label_key       = "settings.show_idle.label"
+  description_key = "settings.show_idle.description"
+  default         = true
+
+[[panel]]
+id              = "panel"
+entry           = "panel.luau"
+width           = 320
+height          = 280
+placement       = "attached"
+position        = "auto"
+open_near_click = true
+
+# Time-is-up alert: persistent (not replaced by other panels), no outside-click
+# dismissal, drawn above everything. Only the Stop button (or the bar widget /
+# IPC) ends it.
+[[panel]]
+id                       = "alert"
+entry                    = "alert.luau"
+width                    = 360
+height                   = 230
+placement                = "floating"
+position                 = "center"
+open_near_click          = false
+dismiss_on_outside_click = false
+persistent               = true
+layer                    = "overlay"
+
+[[service]]
+id    = "timer"
+entry = "service.luau"
+
+[[desktop_widget]]
+id    = "desktop"
+entry = "desktop.luau"
+
+  [[desktop_widget.setting]]
+  key       = "color"
+  type      = "color"
+  label_key = "settings.color.label"
+  description_key = "settings.color.description"
+  default   = "primary"
+
+  [[desktop_widget.setting]]
+  key       = "show_progress"
+  type      = "bool"
+  label_key = "settings.show_progress.label"
+  default   = true
