@@ -47,6 +47,14 @@ function onClose()
   end
 end
 
+-- Space stops the alarm; only delivered while the panel holds keyboard focus
+-- (capture_keys in plugin.toml).
+function onKey(chord, pressed)
+  if chord == "space" and pressed then
+    noctalia.state.set("timer.cmd", "DISMISS" .. ":" .. noctalia.nowMs())
+  end
+end
+
 function onStop()
   noctalia.state.set("timer.cmd", "DISMISS" .. ":" .. noctalia.nowMs())
 end

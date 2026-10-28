@@ -15,7 +15,7 @@ ringing until you press Stop.**
 
 The alert is a `[[panel]]` with `persistent = true`, `dismiss_on_outside_click = false` and
 `layer = "overlay"`: other panels do not replace it, clicking elsewhere does not close it, and it
-is drawn above other windows. It ends when you press **Stop**, click the bar widget, or run
+is drawn above other windows. It ends when you press **Stop** or **Space**, click the bar widget, or run
 `noctalia msg plugin lazy/alarm-timer:timer all dismiss`. Closing it with Escape also counts as
 acknowledging, so the alarm never rings without anything on screen to stop it.
 
